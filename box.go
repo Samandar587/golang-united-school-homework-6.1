@@ -2,6 +2,7 @@ package golang_united_school_homework
 
 import (
 	"errors"
+	"reflect"
 )
 
 // box contains list of shapes and able to perform operations on them
@@ -131,7 +132,7 @@ func (b *box) RemoveAllCircles() error {
 	var exist bool
 	c := &Circle{}
 	for index, value := range b.shapes {
-		if value == c {
+		if reflect.TypeOf(value) == reflect.TypeOf(c) {
 			exist = true
 			b.shapes = append(b.shapes[:index], b.shapes[index+1:]...)
 		}
