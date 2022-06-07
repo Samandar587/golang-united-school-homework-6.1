@@ -36,16 +36,18 @@ func (b *box) GetByIndex(i int) (Shape, error) {
 	var err error
 	var res Shape
 	var exists bool
-	for _, value := range b.shapes {
-		if value == b.shapes[i] {
-			exists = true
-
-		} else {
-			exists = false
+	if i < (b.shapesCapacity - 1) {
+		for _, value := range b.shapes {
+			if value == b.shapes[i] {
+				exists = true
+			} else {
+				exists = false
+			}
 		}
 	}
 	if !exists || i > (b.shapesCapacity-1) {
 		err = errors.New("Out of Range!")
+		res = nil
 	} else {
 		res = b.shapes[i]
 		err = nil
