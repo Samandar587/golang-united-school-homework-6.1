@@ -89,12 +89,13 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 		for _, value := range b.shapes {
 			if value == b.shapes[i] {
 				exist = true
-				rem = value
+				rem = b.shapes[i]
 			}
 		}
 	}
 	if !exist || i > (b.shapesCapacity-1) {
 		err = errors.New("Out of range or the value does not exist!")
+		rem = nil
 	} else {
 		b.shapes[i] = shape
 		err = nil
@@ -105,9 +106,9 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 // SumPerimeter provides sum perimeter of all shapes in the list.
 func (b *box) SumPerimeter() float64 {
 	var sum float64
-	t := &Triangle{}
-	r := &Rectangle{}
-	c := &Circle{}
+	t := Triangle{}
+	r := Rectangle{}
+	c := Circle{}
 	sum = t.CalcPerimeter() + c.CalcPerimeter() + r.CalcPerimeter()
 	return sum
 
@@ -115,9 +116,9 @@ func (b *box) SumPerimeter() float64 {
 
 // SumArea provides sum area of all shapes in the list.
 func (b *box) SumArea() float64 {
-	t := &Triangle{}
-	r := &Rectangle{}
-	c := &Circle{}
+	t := Triangle{}
+	r := Rectangle{}
+	c := Circle{}
 	var sum float64 = r.CalcArea() + c.CalcArea() + t.CalcArea()
 	return sum
 
@@ -132,12 +133,13 @@ func (b *box) RemoveAllCircles() error {
 	for index, value := range b.shapes {
 		if value == c {
 			exist = true
-			b.shapes = append(b.shapes[index:], b.shapes[index+1:]...)
+			b.shapes = append(b.shapes[:index], b.shapes[index+1:]...)
 		}
 	}
 	if exist {
 		err = nil
-	} else {
+	}
+	if !exist {
 		err = errors.New("Circle does not exist!")
 	}
 	return err
