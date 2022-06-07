@@ -39,14 +39,16 @@ func (b *box) GetByIndex(i int) (Shape, error) {
 	for _, value := range b.shapes {
 		if value == b.shapes[i] {
 			exists = true
-			res = b.shapes[i]
-			err = nil
+
 		} else {
 			exists = false
 		}
 	}
 	if !exists || i > (b.shapesCapacity-1) {
 		err = errors.New("Out of Range!")
+	} else {
+		res = b.shapes[i]
+		err = nil
 	}
 	return res, err
 
@@ -61,15 +63,17 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 	for _, val := range b.shapes {
 		if val == b.shapes[i] {
 			exists = true
-			res = b.shapes[i]
-			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
-			err = nil
+
 		} else {
 			exists = false
 		}
 	}
 	if !exists || i > (b.shapesCapacity-1) {
 		err = errors.New("Out of range or does not exist!")
+	} else {
+		res = b.shapes[i]
+		b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
+		err = nil
 	}
 	return res, err
 }
@@ -84,14 +88,15 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 		if value == b.shapes[i] {
 			exist = true
 			rem = value
-			b.shapes[i] = shape
-			err = nil
 		} else {
 			exist = false
 		}
 	}
 	if !exist || i > (b.shapesCapacity-1) {
 		err = errors.New("Out of range or the value does not exist!")
+	} else {
+		b.shapes[i] = shape
+		err = nil
 	}
 	return rem, err
 }
