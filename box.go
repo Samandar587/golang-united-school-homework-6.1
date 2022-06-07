@@ -34,14 +34,12 @@ func (b *box) AddShape(shape Shape) error {
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) GetByIndex(i int) (Shape, error) {
 	var err error
-	var res *Shape
+	var res Shape
 	var exists bool
 	if i < (b.shapesCapacity - 1) {
 		for _, value := range b.shapes {
 			if value == b.shapes[i] {
 				exists = true
-			} else {
-				exists = false
 			}
 		}
 	}
@@ -49,10 +47,10 @@ func (b *box) GetByIndex(i int) (Shape, error) {
 		err = errors.New("Out of Range!")
 		res = nil
 	} else {
-		res = &b.shapes[i]
+		res = b.shapes[i]
 		err = nil
 	}
-	return *res, err
+	return res, err
 
 }
 
@@ -67,8 +65,6 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 			if val == b.shapes[i] {
 				exists = true
 
-			} else {
-				exists = false
 			}
 		}
 	}
@@ -94,8 +90,6 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 			if value == b.shapes[i] {
 				exist = true
 				rem = value
-			} else {
-				exist = false
 			}
 		}
 	}
@@ -139,8 +133,6 @@ func (b *box) RemoveAllCircles() error {
 		if value == c {
 			exist = true
 			b.shapes = append(b.shapes[index:], b.shapes[index+1:]...)
-		} else {
-			exist = false
 		}
 	}
 	if exist {
