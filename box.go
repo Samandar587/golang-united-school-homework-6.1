@@ -131,10 +131,11 @@ func (b *box) RemoveAllCircles() error {
 	var err error
 	var exist bool
 	c := &Circle{}
-	for index, value := range b.shapes {
-		if reflect.TypeOf(value) == reflect.TypeOf(c) {
+	for i := 0; i < len(b.shapes); i++ {
+		if reflect.TypeOf(b.shapes[i]) == reflect.TypeOf(c) {
 			exist = true
-			b.shapes = append(b.shapes[:index], b.shapes[index+1:]...)
+			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
+			i--
 		}
 	}
 	if exist {
