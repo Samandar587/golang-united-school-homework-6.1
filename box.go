@@ -85,7 +85,7 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 	var err error
 	var rem Shape
-	if i > len(b.shapes) {
+	if i >= len(b.shapes) {
 		err = errors.New("Out of range or the value does not exist!")
 		rem = nil
 	}
