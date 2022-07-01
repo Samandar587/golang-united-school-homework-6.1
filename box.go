@@ -91,6 +91,8 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 		for _, value := range b.shapes {
 			if rem == value {
 				exist = true
+			} else {
+				exist = false
 			}
 		}
 		b.shapes[i] = shape
