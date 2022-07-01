@@ -89,13 +89,13 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 	if i < (b.shapesCapacity - 1) { // {c,t,r}
 		rem = b.shapes[i] // rem = r
 		for _, value := range b.shapes {
-			if value == rem {
+			if rem == value {
 				exist = true
 			}
 		}
 		b.shapes[i] = shape
 	}
-	if !exist || len(b.shapes) > (b.shapesCapacity-1) {
+	if !exist || i > (b.shapesCapacity-1) {
 		err = errors.New("Out of range or the value does not exist!")
 		rem = nil
 	} //else {
