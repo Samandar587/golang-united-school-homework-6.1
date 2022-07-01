@@ -107,9 +107,15 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 // SumPerimeter provides sum perimeter of all shapes in the list.
 func (b *box) SumPerimeter() float64 {
 	var sum float64
-	t := Triangle{}
-	r := Rectangle{}
-	c := Circle{}
+	t := Triangle{
+		Side: 3,
+	}
+	r := Rectangle{
+		Height: 1.24,
+	}
+	c := Circle{
+		Radius: 2.4,
+	}
 	sum = t.CalcPerimeter() + c.CalcPerimeter() + r.CalcPerimeter()
 	return sum
 
