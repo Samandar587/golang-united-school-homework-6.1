@@ -85,18 +85,15 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 	var err error
 	var rem Shape
+	rem = b.shapes[i]
 	if i >= len(b.shapes) {
 		err = errors.New("Out of range or the value does not exist!")
 		rem = nil
 		return rem, err
 	}
-	if i < (b.shapesCapacity - 1) { // {c,t,r}
-		rem = b.shapes[i] // rem = r
+	b.shapes[i] = shape
 
-		b.shapes[i] = shape
-	}
-
-	return rem, err
+	return rem, nil
 }
 
 // SumPerimeter provides sum perimeter of all shapes in the list.
