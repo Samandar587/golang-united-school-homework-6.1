@@ -22,10 +22,10 @@ func NewBox(shapesCapacity int) *box {
 // returns the error in case it goes out of the shapesCapacity range.
 func (b *box) AddShape(shape Shape) error {
 	var err error
-	b.shapes = append(b.shapes, shape)
 	if len(b.shapes) >= b.shapesCapacity {
 		err = errors.New("Out of range!")
 	} else {
+		b.shapes = append(b.shapes, shape)
 		err = nil
 	}
 	return err
@@ -85,7 +85,7 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 	var err error
 	var rem Shape
-	if i >= len(b.shapes) {
+	if i > b.shapesCapacity-1 || i < 0 {
 		err = errors.New("Out of range or the value does not exist!")
 		rem = nil
 		return rem, err
